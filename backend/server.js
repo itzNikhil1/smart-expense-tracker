@@ -48,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Health Check
-app.get('/api/health', (req, res) => {
+app.get(['/health', '/api/health'], (req, res) => {
   res.status(200).json({
     status: 'ok',
     app: 'Smart Expense Tracker API',
@@ -56,11 +56,23 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/expenses', require('./routes/expenses'));
-app.use('/api/analytics', require('./routes/analytics'));
-app.use('/api/chat', require('./routes/chat'));
+// API Routes (mounted at both /api/* and /* for full compatibility)
+const authRoutes = require('./routes/auth');
+const expenseRoutes = require('./routes/expenses');
+const analyticsRoutes = require('./routes/analytics');
+const chatRoutes = require('./routes/chat');
+
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
+app.use('/api/expenses', expenseRoutes);
+app.use('/expenses', expenseRoutes);
+
+app.use('/api/analytics', analyticsRoutes);
+app.use('/analytics', analyticsRoutes);
+
+app.use('/api/chat', chatRoutes);
+app.use('/chat', chatRoutes);
 
 // 404 handler for undefined API routes
 app.use('/api/*', (req, res) => {

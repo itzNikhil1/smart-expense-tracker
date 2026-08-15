@@ -1,18 +1,25 @@
 import axios from 'axios';
 
 const getBaseURL = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+  let url = import.meta.env.VITE_API_URL;
+  if (!url) {
+    if (
+      typeof window !== 'undefined' &&
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1'
+    ) {
+      url = 'https://smart-expense-tracker-fd93.onrender.com/api';
+    } else {
+      url = 'http://localhost:5001/api';
+    }
   }
-  // In production on Vercel or cloud domains, automatically connect to the live Render backend
-  if (
-    typeof window !== 'undefined' &&
-    window.location.hostname !== 'localhost' &&
-    window.location.hostname !== '127.0.0.1'
-  ) {
-    return 'https://smart-expense-tracker-fd93.onrender.com/api';
+
+  // Ensure url always has the /api suffix
+  url = url.trim().replace(/\/+$/, '');
+  if (!url.endsWith('/api')) {
+    url += '/api';
   }
-  return 'http://localhost:5001/api';
+  return url;
 };
 
 const api = axios.create({
