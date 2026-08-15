@@ -70,7 +70,7 @@ const Analytics = () => {
   if (loading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center space-y-3">
-        <Loader2 className="w-10 h-10 text-emerald-500 animate-spin" />
+        <Loader2 className="w-10 h-10 text-red-500 animate-spin" />
         <p className="text-sm font-medium text-slate-400">
           Running MongoDB Aggregation Pipelines...
         </p>
@@ -116,9 +116,9 @@ const Analytics = () => {
 
         <button
           onClick={askAiAboutAnalytics}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition-all cursor-pointer"
         >
-          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <Sparkles className="w-4 h-4 text-red-400" />
           <span>Ask AI to Optimize Budget</span>
         </button>
       </div>
@@ -128,7 +128,7 @@ const Analytics = () => {
         <div className="glass-card p-5 border-slate-800/80">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
             <span>This Month Spend</span>
-            <DollarSign className="w-4 h-4 text-emerald-400" />
+            <DollarSign className="w-4 h-4 text-red-400" />
           </div>
           <div className="text-2xl lg:text-3xl font-extrabold text-white mb-2">
             {formatAmount(currentMonth.totalSpend)}
@@ -163,7 +163,7 @@ const Analytics = () => {
         <div className="glass-card p-5 border-slate-800/80">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
             <span>All-Time Spend</span>
-            <Layers className="w-4 h-4 text-teal-400" />
+            <Layers className="w-4 h-4 text-red-400" />
           </div>
           <div className="text-2xl lg:text-3xl font-extrabold text-white mb-2">
             {formatAmount(allTime.totalSpend)}
@@ -195,7 +195,7 @@ const Analytics = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <PieIcon className="w-4 h-4 text-emerald-400" />
+                  <PieIcon className="w-4 h-4 text-red-400" />
                   <span>Category-Wise Breakdown</span>
                 </h3>
                 <p className="text-xs text-slate-400">
@@ -209,7 +209,7 @@ const Analytics = () => {
                   onClick={() => setActiveCategoryTab('allTime')}
                   className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
                     activeCategoryTab === 'allTime'
-                      ? 'bg-emerald-600 text-white font-semibold shadow-sm'
+                      ? 'bg-red-600 text-white font-semibold shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -219,7 +219,7 @@ const Analytics = () => {
                   onClick={() => setActiveCategoryTab('currentMonth')}
                   className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
                     activeCategoryTab === 'currentMonth'
-                      ? 'bg-emerald-600 text-white font-semibold shadow-sm'
+                      ? 'bg-red-600 text-white font-semibold shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -263,7 +263,7 @@ const Analytics = () => {
                           return (
                             <div className="glass-modal p-3 border border-slate-700 shadow-xl text-xs">
                               <p className="font-bold text-white">{data.category}</p>
-                              <p className="text-emerald-400 font-extrabold text-sm">
+                              <p className="text-red-400 font-extrabold text-sm">
                                 {formatAmount(data.totalAmount)}
                               </p>
                               <p className="text-slate-400 mt-0.5">
@@ -293,7 +293,7 @@ const Analytics = () => {
         <div className="glass-card p-6 border-slate-800/80">
           <div className="mb-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <BarChart3 className="w-4 h-4 text-emerald-400" />
+              <BarChart3 className="w-4 h-4 text-red-400" />
               <span>Monthly Spending Trend (Last 6 Months)</span>
             </h3>
             <p className="text-xs text-slate-400">
@@ -314,8 +314,8 @@ const Analytics = () => {
                 >
                   <defs>
                     <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.45} />
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#ef4444" stopOpacity={0.45} />
+                      <stop offset="95%" stopColor="#ef4444" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.3} />
@@ -339,7 +339,7 @@ const Analytics = () => {
                         return (
                           <div className="glass-modal p-3 border border-slate-700 shadow-xl text-xs">
                             <p className="font-bold text-white mb-1">{label}</p>
-                            <p className="text-emerald-300 font-extrabold text-sm">
+                            <p className="text-red-400 font-extrabold text-sm">
                               {formatAmount(payload[0].value)}
                             </p>
                             <p className="text-slate-400 mt-1">
@@ -354,7 +354,7 @@ const Analytics = () => {
                   <Area
                     type="monotone"
                     dataKey="totalAmount"
-                    stroke="#10b981"
+                    stroke="#ef4444"
                     strokeWidth={2.5}
                     fillOpacity={1}
                     fill="url(#areaGradient)"
@@ -411,7 +411,7 @@ const Analytics = () => {
                         <div className="flex items-center gap-3">
                           <div className="flex-1 max-w-[120px] bg-slate-800 rounded-full h-1.5 overflow-hidden">
                             <div
-                              className="h-full rounded-full bg-emerald-500"
+                              className="h-full rounded-full bg-red-500"
                               style={{ width: `${Math.min(share, 100)}%` }}
                             />
                           </div>

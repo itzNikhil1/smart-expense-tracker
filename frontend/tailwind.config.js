@@ -8,28 +8,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Stripe & Linear inspired Fintech Emerald Palette
+        // Bold Crimson & Ruby Red Theme
         brand: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10b981',
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
-          950: '#022c22',
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
+          950: '#450a0a',
         },
         surface: {
           50: '#f8fafc',
           100: '#f1f5f9',
           200: '#e2e8f0',
-          800: '#1e293b',
-          850: '#151f30',
-          900: '#0f172a',
-          950: '#090d16',
+          800: '#1c1f26',
+          850: '#14171f',
+          900: '#0e1117',
+          950: '#080a0f',
         },
         category: {
           food: '#f59e0b',
@@ -37,17 +37,17 @@ export default {
           bills: '#ef4444',
           shopping: '#ec4899',
           health: '#10b981',
-          other: '#6366f1',
+          other: '#dc2626',
         }
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'glow-brand': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
-        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
+        'glow-brand': '0 0 25px -5px rgba(220, 38, 38, 0.45)',
+        'glow-red': '0 0 25px -5px rgba(239, 68, 68, 0.45)',
         'glow-blue': '0 0 25px -5px rgba(59, 130, 246, 0.35)',
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
       },
       animation: {
         'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

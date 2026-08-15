@@ -12,9 +12,9 @@ const StatCard = ({
 }) => {
   const colorMap = {
     brand: {
-      border: 'hover:border-brand-500/40',
-      iconBg: 'bg-brand-500/10 text-brand-400 border-brand-500/20',
-      glow: 'group-hover:opacity-100 bg-brand-500/5',
+      border: 'hover:border-red-500/40',
+      iconBg: 'bg-red-500/10 text-red-400 border-red-500/20',
+      glow: 'group-hover:opacity-100 bg-red-500/5',
     },
     emerald: {
       border: 'hover:border-emerald-500/40',
@@ -61,7 +61,7 @@ const StatCard = ({
             <span
               className={`inline-flex items-center gap-0.5 font-semibold ${
                 trend === 'up'
-                  ? 'text-rose-400'
+                  ? 'text-red-400'
                   : trend === 'down'
                   ? 'text-emerald-400'
                   : 'text-slate-400'

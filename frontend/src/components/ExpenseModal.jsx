@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useCurrency } from '../context/CurrencyContext';
-import { X, Calendar, Tag, FileText, Loader2, Coins } from 'lucide-react';
 import { CATEGORY_CONFIG } from './CategoryBadge';
+import {
+  X,
+  DollarSign,
+  Calendar,
+  FileText,
+  Tag,
+  Loader2,
+  AlertCircle,
+  Coins,
+} from 'lucide-react';
 
 const CATEGORIES = ['Food', 'Travel', 'Bills', 'Shopping', 'Health', 'Other'];
 
@@ -12,21 +21,22 @@ const ExpenseModal = ({
   initialData = null,
   title = 'Add Expense',
 }) => {
-  const { currency, currencies, changeCurrency } = useCurrency();
+  const { currency } = useCurrency();
+
   const [formData, setFormData] = useState({
     amount: '',
     category: 'Food',
     description: '',
     date: new Date().toISOString().split('T')[0],
   });
+
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [serverError, setServerError] = useState('');
 
   useEffect(() => {
     if (initialData) {
       setFormData({
-        amount: initialData.amount || '',
+        amount: initialData.amount.toString(),
         category: initialData.category || 'Food',
         description: initialData.description || '',
         date: initialData.date
@@ -42,25 +52,31 @@ const ExpenseModal = ({
       });
     }
     setErrors({});
-    setServerError('');
   }, [initialData, isOpen]);
 
   if (!isOpen) return null;
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.amount || Number(formData.amount) <= 0) {
-      newErrors.amount = `Please enter a positive amount greater than ${currency.symbol}0`;
+
+    if (!formData.amount || isNaN(formData.amount) || Number(formData.amount) <= 0) {
+      newErrors.amount = 'Please enter a valid amount greater than 0';
     }
-    if (!formData.category || !CATEGORIES.includes(formData.category)) {
-      newErrors.category = 'Please select a valid category';
+
+    if (!formData.category) {
+      newErrors.category = 'Please select a category';
     }
-    if (!formData.description.trim()) {
-      newErrors.description = 'Description is required';
+
+    if (!formData.description || formData.description.trim().length === 0) {
+      newErrors.description = 'Description / merchant name is required';
+    } else if (formData.description.trim().length > 200) {
+      newErrors.description = 'Description cannot exceed 200 characters';
     }
+
     if (!formData.date) {
-      newErrors.date = 'Date is required';
+      newErrors.date = 'Please select a valid date';
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -69,10 +85,8 @@ const ExpenseModal = ({
     e.preventDefault();
     if (!validate()) return;
 
-    setSubmitting(true);
-    setServerError('');
-
     try {
+      setSubmitting(true);
       await onSubmit({
         amount: parseFloat(formData.amount),
         category: formData.category,
@@ -81,8 +95,10 @@ const ExpenseModal = ({
       });
       onClose();
     } catch (err) {
-      const msg = err.response?.data?.message || 'Failed to save expense. Please check inputs.';
-      setServerError(msg);
+      console.error('Submission failed:', err);
+      setErrors({
+        server: err.response?.data?.message || 'Failed to save expense record.',
+      });
     } finally {
       setSubmitting(false);
     }
@@ -91,57 +107,46 @@ const ExpenseModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
       <div
-        className="glass-modal w-full max-w-lg p-6 sm:p-8 relative border border-slate-700/60 animate-slide-up"
+        className="glass-modal w-full max-w-lg p-6 sm:p-8 relative border border-slate-700/60 shadow-2xl animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition-colors"
-          type="button"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">
-          {initialData ? 'Edit Expense' : 'Add New Expense'}
-        </h2>
-        <p className="text-xs text-slate-400 mb-5">
-          Record your financial transactions with multi-currency tracking and AI intelligence.
-        </p>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-white tracking-tight">{title}</h2>
+          <p className="text-xs text-slate-400 mt-1">
+            Fill in the transaction details below. All entries are synced instantly.
+          </p>
+        </div>
 
-        {serverError && (
-          <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
-            {serverError}
+        {errors.server && (
+          <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{errors.server}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Amount input & Currency Selector */}
+          {/* Amount input */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                Amount & Currency
+                Amount ({currency.code})
               </label>
-              <div className="flex items-center gap-1 text-[11px] text-slate-400">
-                <Coins className="w-3 h-3 text-brand-400" />
-                <span>Currency:</span>
-                <select
-                  value={currency.code}
-                  onChange={(e) => changeCurrency(e.target.value)}
-                  className="bg-slate-800 border border-slate-700 text-brand-300 rounded px-1.5 py-0.5 text-xs font-semibold cursor-pointer outline-none"
-                >
-                  {currencies.map((c) => (
-                    <option key={c.code} value={c.code} className="bg-slate-900 text-slate-100">
-                      {c.symbol} ({c.code})
-                    </option>
-                  ))}
-                </select>
+              <div className="flex items-center gap-1 text-[11px] text-red-400">
+                <Coins className="w-3 h-3" />
+                <span>Active Currency: {currency.symbol}</span>
               </div>
             </div>
 
             <div className="relative flex items-center">
-              <span className="absolute left-3.5 flex items-center pointer-events-none text-brand-400 font-bold text-base z-10">
+              <span className="absolute left-3.5 flex items-center pointer-events-none text-red-400 font-bold text-base z-10">
                 {currency.symbol}
               </span>
               <input
@@ -178,9 +183,9 @@ const ExpenseModal = ({
                     key={cat}
                     type="button"
                     onClick={() => setFormData({ ...formData, category: cat })}
-                    className={`flex items-center justify-center gap-2 p-2.5 rounded-xl border text-xs font-medium transition-all ${
+                    className={`flex items-center justify-center gap-2 p-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-600 text-white border-emerald-500 shadow-glow-brand'
+                        ? 'bg-red-600 text-white border-red-500 shadow-glow-brand'
                         : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                     }`}
                   >
@@ -248,14 +253,14 @@ const ExpenseModal = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-xs font-medium text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition-colors"
+              className="px-4 py-2.5 text-xs font-medium text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-xl shadow-glow-brand transition-all duration-200 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 rounded-xl shadow-glow-brand transition-all duration-200 disabled:opacity-50 cursor-pointer"
             >
               {submitting ? (
                 <>

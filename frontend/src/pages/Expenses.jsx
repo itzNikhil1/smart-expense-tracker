@@ -161,22 +161,22 @@ const Expenses = () => {
             Expense Management
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
-            View, filter, search, and manage all your tracked financial transactions ({currency.code}).
+            View, filter, search, and manage all your financial transactions ({currency.code}).
           </p>
         </div>
 
         <div className="flex items-center gap-2.5 sm:gap-3">
           <button
             onClick={askAiAboutCurrentFilter}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-brand-300 bg-brand-500/10 hover:bg-brand-500/20 border border-brand-500/30 transition-all cursor-pointer"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition-all cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+            <Sparkles className="w-3.5 h-3.5 text-red-400" />
             <span>Ask AI</span>
           </button>
 
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-brand transition-all duration-200 cursor-pointer"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 shadow-glow-brand transition-all duration-200 cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Add Expense</span>
@@ -184,10 +184,10 @@ const Expenses = () => {
         </div>
       </div>
 
-      {/* Filter & Search Bar - Fully Responsive for Mobile & Desktop */}
+      {/* Filter & Search Bar */}
       <div className="glass-card p-4 sm:p-5 border-slate-800/80 space-y-3.5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3">
-          {/* Search input (4 cols on desktop) */}
+          {/* Search input */}
           <div className="sm:col-span-2 lg:col-span-4 relative flex items-center">
             <span className="absolute left-3.5 flex items-center pointer-events-none text-slate-400 z-10">
               <Search className="w-4 h-4" />
@@ -201,9 +201,9 @@ const Expenses = () => {
             />
           </div>
 
-          {/* Category Dropdown (3 cols on desktop) */}
+          {/* Category Dropdown */}
           <div className="sm:col-span-1 lg:col-span-3 relative flex items-center">
-            <span className="absolute left-3.5 flex items-center pointer-events-none text-brand-400 z-10">
+            <span className="absolute left-3.5 flex items-center pointer-events-none text-red-400 z-10">
               <Tag className="w-3.5 h-3.5" />
             </span>
             <select
@@ -222,13 +222,13 @@ const Expenses = () => {
             </span>
           </div>
 
-          {/* Date Pickers Container (Mobile 2-column, Desktop 4 cols) */}
+          {/* Date Pickers Container */}
           <div className="sm:col-span-1 lg:col-span-4 grid grid-cols-2 gap-2">
             {/* Start Date */}
-            <div className="relative flex items-center bg-slate-950/60 border border-slate-800 rounded-xl px-2.5 py-1.5 focus-within:border-brand-500">
+            <div className="relative flex items-center bg-slate-950/60 border border-slate-800 rounded-xl px-2.5 py-1.5 focus-within:border-red-500">
               <div className="flex flex-col w-full">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                  <Calendar className="w-2.5 h-2.5 text-brand-400" /> From
+                  <Calendar className="w-2.5 h-2.5 text-red-400" /> From
                 </span>
                 <input
                   type="date"
@@ -240,10 +240,10 @@ const Expenses = () => {
             </div>
 
             {/* End Date */}
-            <div className="relative flex items-center bg-slate-950/60 border border-slate-800 rounded-xl px-2.5 py-1.5 focus-within:border-brand-500">
+            <div className="relative flex items-center bg-slate-950/60 border border-slate-800 rounded-xl px-2.5 py-1.5 focus-within:border-red-500">
               <div className="flex flex-col w-full">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                  <Calendar className="w-2.5 h-2.5 text-indigo-400" /> To
+                  <Calendar className="w-2.5 h-2.5 text-rose-400" /> To
                 </span>
                 <input
                   type="date"
@@ -255,7 +255,7 @@ const Expenses = () => {
             </div>
           </div>
 
-          {/* Reset button (1 col on desktop) */}
+          {/* Reset button */}
           <div className="sm:col-span-2 lg:col-span-1 flex items-center">
             <button
               onClick={resetFilters}
@@ -280,7 +280,7 @@ const Expenses = () => {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-2.5 py-1 rounded-lg shrink-0 transition-all cursor-pointer text-xs ${
                     isSelected
-                      ? 'bg-brand-600 text-white font-semibold shadow-sm'
+                      ? 'bg-red-600 text-white font-semibold shadow-sm'
                       : 'bg-slate-800/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                   }`}
                 >
@@ -308,7 +308,7 @@ const Expenses = () => {
       <div className="glass-card border-slate-800/80 overflow-hidden shadow-xl">
         {loading ? (
           <div className="py-16 flex flex-col items-center justify-center">
-            <Loader2 className="w-8 h-8 text-brand-500 animate-spin mb-3" />
+            <Loader2 className="w-8 h-8 text-red-500 animate-spin mb-3" />
             <p className="text-xs text-slate-400">Loading expense records...</p>
           </div>
         ) : expenses.length === 0 ? (
@@ -331,11 +331,10 @@ const Expenses = () => {
           </div>
         ) : (
           <>
-            {/* 📱 Mobile Card View (shown only on screens < sm) */}
+            {/* 📱 Mobile Card View */}
             <div className="sm:hidden divide-y divide-slate-800/70">
               {expenses.map((exp) => (
                 <div key={exp._id} className="p-4 space-y-2 hover:bg-slate-850/40 transition-colors">
-                  {/* Top row: Category Badge & Amount */}
                   <div className="flex items-center justify-between">
                     <CategoryBadge category={exp.category} size="sm" />
                     <span className="font-extrabold text-white text-base">
@@ -343,12 +342,10 @@ const Expenses = () => {
                     </span>
                   </div>
 
-                  {/* Middle row: Description */}
                   <p className="text-sm font-medium text-slate-200 leading-snug">
                     {exp.description}
                   </p>
 
-                  {/* Bottom row: Date & Action buttons */}
                   <div className="flex items-center justify-between pt-1 text-xs text-slate-400">
                     <span className="flex items-center gap-1 text-[11px] text-slate-400">
                       <Calendar className="w-3 h-3 text-slate-500" />
@@ -362,9 +359,9 @@ const Expenses = () => {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setEditingExpense(exp)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium text-slate-300 hover:text-brand-300 bg-slate-800 hover:bg-slate-750 transition-colors"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium text-slate-300 hover:text-red-400 bg-slate-800 hover:bg-slate-750 transition-colors"
                       >
-                        <Edit2 className="w-3 h-3 text-brand-400" />
+                        <Edit2 className="w-3 h-3 text-red-400" />
                         <span>Edit</span>
                       </button>
                       <button
@@ -380,7 +377,7 @@ const Expenses = () => {
               ))}
             </div>
 
-            {/* 💻 Desktop Table View (hidden on mobile, shown on sm and up) */}
+            {/* 💻 Desktop Table View */}
             <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead>
@@ -451,7 +448,7 @@ const Expenses = () => {
                           <button
                             onClick={() => setEditingExpense(exp)}
                             title="Edit Expense"
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-brand-400 hover:bg-slate-800 transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-800 transition-colors cursor-pointer"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>

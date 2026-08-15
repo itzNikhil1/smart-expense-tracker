@@ -111,11 +111,11 @@ const Dashboard = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
       {/* Header Banner */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-card p-6 sm:p-8 border-slate-800/80 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30">
               Overview
             </span>
             <span className="text-xs text-slate-400">
@@ -130,23 +130,23 @@ const Dashboard = () => {
           </h1>
           <p className="text-sm text-slate-400 max-w-xl">
             Here is your financial breakdown and AI analysis formatted in{' '}
-            <strong className="text-emerald-300">{currency.code} ({currency.symbol})</strong>.
+            <strong className="text-red-400">{currency.code} ({currency.symbol})</strong>.
           </p>
         </div>
 
         <div className="flex items-center gap-3 relative z-10">
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-glow-brand transition-all duration-200 cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 shadow-glow-brand transition-all duration-200 cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Add Expense</span>
           </button>
           <Link
             to="/chat"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-emerald-300 bg-slate-800/90 hover:bg-slate-800 border border-slate-700/80 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-400 bg-slate-800/90 hover:bg-slate-800 border border-slate-700/80 transition-colors"
           >
-            <BotMessageSquare className="w-4 h-4 text-emerald-400" />
+            <BotMessageSquare className="w-4 h-4 text-red-400" />
             <span>Ask AI</span>
           </Link>
         </div>
@@ -168,7 +168,7 @@ const Dashboard = () => {
           value={formatAmount(currentMonth.avgPerTransaction)}
           icon={TrendingUp}
           subtitle={`Across ${currentMonth.transactionCount} transactions`}
-          colorScheme="emerald"
+          colorScheme="brand"
         />
         <StatCard
           title="Total Transactions"
@@ -191,11 +191,11 @@ const Dashboard = () => {
       </div>
 
       {/* Quick AI Question Banner */}
-      <div className="glass-card p-5 border-emerald-500/20 bg-gradient-to-r from-emerald-950/30 via-slate-900/60 to-slate-900/90 relative overflow-hidden">
+      <div className="glass-card p-5 border-red-500/20 bg-gradient-to-r from-red-950/30 via-slate-900/60 to-slate-900/90 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-emerald-400" />
+            <div className="w-10 h-10 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-red-400" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">Ask your expenses anything</h3>
@@ -215,7 +215,7 @@ const Dashboard = () => {
             />
             <button
               type="submit"
-              className="px-4 py-2 text-xs font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-500 shrink-0 transition-colors shadow-glow-brand cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold rounded-xl text-white bg-red-600 hover:bg-red-500 shrink-0 transition-colors shadow-glow-brand cursor-pointer"
             >
               Ask AI
             </button>
@@ -234,7 +234,7 @@ const Dashboard = () => {
             </div>
             <Link
               to="/analytics"
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+              className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1"
             >
               <span>View Analytics</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -243,7 +243,7 @@ const Dashboard = () => {
 
           {loading ? (
             <div className="h-64 flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+              <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
             </div>
           ) : monthlyTrends.length === 0 ? (
             <div className="h-64 flex flex-col items-center justify-center text-slate-500 text-sm">
@@ -274,7 +274,7 @@ const Dashboard = () => {
                         return (
                           <div className="glass-modal p-3 border border-slate-700 shadow-xl text-xs">
                             <p className="font-semibold text-white mb-1">{label}</p>
-                            <p className="text-emerald-400 font-bold">
+                            <p className="text-red-400 font-bold">
                               Total: {formatAmount(payload[0].value)}
                             </p>
                             <p className="text-slate-400">
@@ -293,8 +293,8 @@ const Dashboard = () => {
                   />
                   <defs>
                     <linearGradient id="brandGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" stopOpacity={0.9} />
-                      <stop offset="100%" stopColor="#047857" stopOpacity={0.4} />
+                      <stop offset="0%" stopColor="#dc2626" stopOpacity={0.9} />
+                      <stop offset="100%" stopColor="#991b1b" stopOpacity={0.4} />
                     </linearGradient>
                   </defs>
                 </BarChart>
@@ -314,7 +314,7 @@ const Dashboard = () => {
 
             {loading ? (
               <div className="h-48 flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+                <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
               </div>
             ) : categoryBreakdown.length === 0 ? (
               <div className="h-48 flex flex-col items-center justify-center text-slate-500 text-xs">
@@ -350,7 +350,7 @@ const Dashboard = () => {
                           return (
                             <div className="glass-modal p-2.5 border border-slate-700 shadow-xl text-xs">
                               <p className="font-bold text-white">{data.category}</p>
-                              <p className="text-emerald-400 font-semibold">
+                              <p className="text-red-400 font-semibold">
                                 {formatAmount(data.totalAmount)}
                               </p>
                               <p className="text-slate-400">{data.count} items</p>
@@ -385,7 +385,7 @@ const Dashboard = () => {
                     {cat.category}
                   </span>
                 </div>
-                <span className="text-slate-400 font-bold group-hover:text-emerald-400 transition-colors">
+                <span className="text-slate-400 font-bold group-hover:text-red-400 transition-colors">
                   {formatAmount(cat.totalAmount)}
                 </span>
               </button>
@@ -403,7 +403,7 @@ const Dashboard = () => {
           </div>
           <Link
             to="/expenses"
-            className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+            className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1"
           >
             <span>View All</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -412,7 +412,7 @@ const Dashboard = () => {
 
         {loading ? (
           <div className="py-12 flex flex-col items-center justify-center">
-            <Loader2 className="w-6 h-6 text-emerald-500 animate-spin mb-2" />
+            <Loader2 className="w-6 h-6 text-red-500 animate-spin mb-2" />
             <p className="text-xs text-slate-400">Loading transactions...</p>
           </div>
         ) : recentExpenses.length === 0 ? (

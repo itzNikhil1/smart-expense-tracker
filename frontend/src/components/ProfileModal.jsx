@@ -74,7 +74,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
 
         {/* Profile Header */}
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 p-0.5 shadow-glow-brand shrink-0">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-600 to-red-500 p-0.5 shadow-glow-brand shrink-0">
             <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-xl font-bold text-white tracking-wider">
               {initials}
             </div>
@@ -86,7 +86,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
               <span>{user?.email}</span>
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-md bg-red-500/10 text-red-400 border border-red-500/20">
                 <Shield className="w-2.5 h-2.5" />
                 Verified Account
               </span>
@@ -118,10 +118,10 @@ const ProfileModal = ({ isOpen, onClose }) => {
         <div className="mb-6">
           <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
-              <Coins className="w-3.5 h-3.5 text-emerald-400" />
+              <Coins className="w-3.5 h-3.5 text-red-400" />
               <span>Display Currency</span>
             </span>
-            <span className="text-[10px] text-emerald-400 font-normal">
+            <span className="text-[10px] text-red-400 font-normal">
               Active: {currency.code} ({currency.symbol})
             </span>
           </label>
@@ -133,14 +133,14 @@ const ProfileModal = ({ isOpen, onClose }) => {
                   key={curr.code}
                   type="button"
                   onClick={() => changeCurrency(curr.code)}
-                  className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium border transition-all ${
+                  className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium border transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-emerald-600/20 text-emerald-300 border-emerald-500 shadow-glow-brand'
+                      ? 'bg-red-600/20 text-red-300 border-red-500 shadow-glow-brand'
                       : 'bg-slate-950/40 text-slate-400 hover:text-slate-200 border-slate-800 hover:border-slate-700'
                   }`}
                 >
                   <span className="font-bold">{curr.symbol} {curr.code}</span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-emerald-400" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-red-400" />}
                 </button>
               );
             })}
@@ -159,7 +159,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
               onClose();
               logout();
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>Log Out</span>

@@ -70,20 +70,20 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background glowing orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-teal-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-rose-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 p-0.5 shadow-glow-brand mb-4">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-600 to-red-500 p-0.5 shadow-glow-brand mb-4">
           <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-            <Sparkles className="w-7 h-7 text-emerald-400" />
+            <Sparkles className="w-7 h-7 text-red-500" />
           </div>
         </div>
         <h1 className="text-3xl font-extrabold tracking-tight text-white">
           Welcome back
         </h1>
         <p className="mt-2 text-sm text-slate-400">
-          Sign in to access your AI-powered financial intelligence.
+          Sign in to access your financial tracking & AI intelligence.
         </p>
       </div>
 
@@ -176,7 +176,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full mt-2 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-glow-brand transition-all duration-200 disabled:opacity-50 cursor-pointer"
+              className="w-full mt-2 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 shadow-glow-brand transition-all duration-200 disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -197,9 +197,9 @@ const Login = () => {
             <button
               type="button"
               onClick={fillDemoAccount}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-medium text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-medium text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition-colors cursor-pointer"
             >
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-red-400" />
               <span>Click to auto-fill seeded Demo Account</span>
             </button>
           </div>
@@ -209,7 +209,7 @@ const Login = () => {
             Don't have an account yet?{' '}
             <Link
               to="/signup"
-              className="font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+              className="font-semibold text-red-400 hover:text-red-300 transition-colors"
             >
               Create an account
             </Link>
