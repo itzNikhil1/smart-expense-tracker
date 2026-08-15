@@ -12,6 +12,16 @@
     background-attachment: fixed;
   }
 
+  /* Date inputs dark mode visibility fix for mobile Chrome & iOS */
+  input[type="date"] {
+    color-scheme: dark;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.85) brightness(1.2);
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
