@@ -180,7 +180,7 @@ const ExpenseModal = ({
                     onClick={() => setFormData({ ...formData, category: cat })}
                     className={`flex items-center justify-center gap-2 p-2.5 rounded-xl border text-xs font-medium transition-all ${
                       isSelected
-                        ? 'bg-brand-600 text-white border-brand-500 shadow-glow-brand'
+                        ? 'bg-emerald-600 text-white border-emerald-500 shadow-glow-brand'
                         : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                     }`}
                   >
@@ -255,7 +255,7 @@ const ExpenseModal = ({
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 rounded-xl shadow-glow-brand transition-all duration-200 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-xl shadow-glow-brand transition-all duration-200 disabled:opacity-50"
             >
               {submitting ? (
                 <>

@@ -8,27 +8,28 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Stripe & Linear inspired Fintech Emerald Palette
         brand: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
         },
         surface: {
           50: '#f8fafc',
           100: '#f1f5f9',
           200: '#e2e8f0',
           800: '#1e293b',
-          850: '#162032',
+          850: '#151f30',
           900: '#0f172a',
-          950: '#0b1120',
+          950: '#090d16',
         },
         category: {
           food: '#f59e0b',
@@ -36,15 +37,16 @@ export default {
           bills: '#ef4444',
           shopping: '#ec4899',
           health: '#10b981',
-          other: '#8b5cf6',
+          other: '#6366f1',
         }
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'glow-brand': '0 0 25px -5px rgba(139, 92, 246, 0.3)',
-        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.3)',
+        'glow-brand': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
+        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
+        'glow-blue': '0 0 25px -5px rgba(59, 130, 246, 0.35)',
         'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       },
       animation: {
@@ -58,10 +60,10 @@ export default {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(12px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        }
-      }
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],

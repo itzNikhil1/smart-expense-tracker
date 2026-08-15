@@ -64,6 +64,7 @@ const Chat = () => {
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const lastHandledPromptKey = useRef('');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -122,8 +123,6 @@ const Chat = () => {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
   };
-
-  const lastHandledPromptKey = useRef('');
 
   // Handle incoming initial prompt from Dashboard/Expenses navigation
   useEffect(() => {
@@ -202,7 +201,7 @@ const Chat = () => {
         }
         if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**')) {
           return (
-            <em key={pIdx} className="italic text-brand-300">
+            <em key={pIdx} className="italic text-emerald-300">
               {part.slice(1, -1)}
             </em>
           );
@@ -218,7 +217,7 @@ const Chat = () => {
       ) {
         return (
           <div key={idx} className="flex items-start gap-2 my-1 pl-1">
-            <span className="text-brand-400 font-bold mt-0.5 text-xs">•</span>
+            <span className="text-emerald-400 font-bold mt-0.5 text-xs">•</span>
             <span className="flex-1 text-slate-200 text-xs sm:text-sm leading-relaxed">
               {formattedParts}
             </span>
@@ -231,7 +230,7 @@ const Chat = () => {
       if (numberedMatch) {
         return (
           <div key={idx} className="flex items-start gap-2 my-1 pl-1">
-            <span className="text-brand-400 font-bold text-xs mt-0.5">{numberedMatch[1]}.</span>
+            <span className="text-emerald-400 font-bold text-xs mt-0.5">{numberedMatch[1]}.</span>
             <span className="flex-1 text-slate-200 text-xs sm:text-sm leading-relaxed">
               {formattedParts}
             </span>
@@ -258,9 +257,9 @@ const Chat = () => {
         {/* Chat Header */}
         <div className="px-6 py-4 border-b border-slate-800/80 bg-slate-950/60 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-purple-500 p-0.5 shadow-glow-brand">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 p-0.5 shadow-glow-brand">
               <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-brand-400" />
+                <Sparkles className="w-5 h-5 text-emerald-400" />
               </div>
             </div>
             <div>
@@ -304,9 +303,9 @@ const Chat = () => {
               >
                 {/* AI Avatar */}
                 {!isUser && (
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 p-0.5 shadow-sm shrink-0 mt-1">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 p-0.5 shadow-sm shrink-0 mt-1">
                     <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                      <Sparkles className="w-4 h-4 text-brand-400" />
+                      <Sparkles className="w-4 h-4 text-emerald-400" />
                     </div>
                   </div>
                 )}
@@ -315,7 +314,7 @@ const Chat = () => {
                 <div
                   className={`relative max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 text-sm ${
                     isUser
-                      ? 'bg-gradient-to-r from-brand-600 to-indigo-600 text-white shadow-glow-brand rounded-tr-none'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-glow-brand rounded-tr-none'
                       : 'bg-slate-900/90 text-slate-200 border border-slate-800 rounded-tl-none shadow-lg'
                   }`}
                 >
@@ -373,13 +372,13 @@ const Chat = () => {
           {/* Thinking loading bubble */}
           {loading && (
             <div className="flex gap-3 sm:gap-4 justify-start animate-fade-in">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 p-0.5 shrink-0 mt-1">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 p-0.5 shrink-0 mt-1">
                 <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-brand-400" />
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
                 </div>
               </div>
               <div className="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 shadow-lg text-sm text-slate-300 flex items-center gap-3">
-                <Loader2 className="w-4 h-4 text-brand-400 animate-spin" />
+                <Loader2 className="w-4 h-4 text-emerald-400 animate-spin" />
                 <span className="text-xs text-slate-400">
                   Gemini Flash is analyzing your verified financial records...
                 </span>
@@ -405,9 +404,9 @@ const Chat = () => {
                   type="button"
                   onClick={() => sendMessage(item.query)}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800/90 text-slate-300 hover:text-white border border-slate-800/90 text-xs font-medium transition-all hover:border-brand-500/40 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800/90 text-slate-300 hover:text-white border border-slate-800/90 text-xs font-medium transition-all hover:border-emerald-500/40 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
                 >
-                  <Icon className="w-3.5 h-3.5 text-brand-400" />
+                  <Icon className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -439,7 +438,7 @@ const Chat = () => {
             <button
               type="submit"
               disabled={!inputMessage.trim() || loading}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-brand transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none shrink-0 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-glow-brand transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none shrink-0 cursor-pointer"
             >
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
