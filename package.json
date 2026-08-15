@@ -1,0 +1,14 @@
+{
+  "name": "smart-expense-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart Expense Tracker with MERN, Gemini AI Chatbot, and Multi-Currency",
+  "scripts": {
+    "start": "node backend/server.js",
+    "build": "cd backend && npm install",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
