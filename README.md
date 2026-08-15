@@ -246,8 +246,3 @@ When a user asks `"How much did I spend on Food this month?"` or `"What are my h
 
 ---
 
-## 🎨 UI & UX Design Highlights
-- **Curated Palette**: Deep navy/slate dark mode with rich violet/brand accents and category color-coding.
-- **Glassmorphism**: Backdrop blur modal windows, translucent card layers, and subtle ambient hover glows.
-- **Micro-Interactions**: Animated chart tooltips, smooth table pagination, toast feedback, and AI thinking bubbles.
-- **One-Click Demo Account**: Quickly evaluate all features using the **"Click to auto-fill seeded Demo Account"** button on the login screen.
