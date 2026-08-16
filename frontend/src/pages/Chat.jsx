@@ -52,7 +52,7 @@ const Chat = () => {
       {
         id: 'welcome',
         sender: 'ai',
-        text: `Hello ${user?.name?.split(' ')[0] || 'there'}! 👋 I am **SmartSpend AI**, your personal financial assistant powered by **Google Gemini Flash**.\n\nI have direct access to your verified expenses, category breakdowns, and monthly trends. Ask me anything about your finances!`,
+        text: `Hello ${user?.name?.split(' ')[0] || 'there'}! I am **SmartSpend AI**, your personal financial assistant powered by **Google Gemini Flash**.\n\nI have direct access to your verified expenses, category breakdowns, and monthly trends. Ask me anything about your finances!`,
         timestamp: new Date(),
       },
     ];
@@ -113,7 +113,7 @@ const Chat = () => {
       const aiErrorMessage = {
         id: `ai-err-${Date.now()}`,
         sender: 'ai',
-        text: `⚠️ **Notice:** ${errorMsg}`,
+        text: `**Notice:** ${errorMsg}`,
         timestamp: new Date(),
         isError: true,
       };
@@ -124,7 +124,6 @@ const Chat = () => {
     }
   };
 
-  // Handle incoming initial prompt from Dashboard/Expenses navigation
   useEffect(() => {
     if (location.state?.initialPrompt) {
       const promptText = location.state.initialPrompt;
@@ -162,18 +161,15 @@ const Chat = () => {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  // Helper to render formatted markdown
   const renderFormattedText = (text) => {
     if (!text) return null;
     const lines = text.split('\n');
 
     return lines.map((line, idx) => {
-      // Parse horizontal rules
       if (line.trim() === '---' || line.trim() === '***') {
         return <hr key={idx} className="border-slate-700/60 my-2.5" />;
       }
 
-      // Parse headers
       if (line.trim().startsWith('### ')) {
         return (
           <h4 key={idx} className="font-bold text-white text-sm mt-3 mb-1.5 flex items-center gap-1.5">
@@ -189,7 +185,6 @@ const Chat = () => {
         );
       }
 
-      // Parse bold **text** and italic *text*
       const parts = line.split(/(\*\*.*?\*\*|\*.*?\*)/g);
       const formattedParts = parts.map((part, pIdx) => {
         if (part.startsWith('**') && part.endsWith('**')) {
@@ -209,7 +204,6 @@ const Chat = () => {
         return part;
       });
 
-      // Parse bullet points
       if (
         line.trim().startsWith('- ') ||
         line.trim().startsWith('* ') ||
@@ -225,7 +219,6 @@ const Chat = () => {
         );
       }
 
-      // Parse numbered lists (1. , 2. )
       const numberedMatch = line.trim().match(/^(\d+)\.\s+(.*)/);
       if (numberedMatch) {
         return (
@@ -252,9 +245,7 @@ const Chat = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-[calc(100vh-6rem)] flex flex-col animate-fade-in">
-      {/* Chat Container */}
       <div className="glass-card border-slate-800/80 flex-1 flex flex-col overflow-hidden shadow-2xl relative">
-        {/* Chat Header */}
         <div className="px-6 py-4 border-b border-slate-800/80 bg-slate-950/60 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-600 p-0.5 shadow-glow-brand">
@@ -289,7 +280,6 @@ const Chat = () => {
           </button>
         </div>
 
-        {/* Message Thread */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
           {messages.map((msg) => {
             const isUser = msg.sender === 'user';
@@ -301,7 +291,6 @@ const Chat = () => {
                   isUser ? 'justify-end' : 'justify-start'
                 } group animate-fade-in`}
               >
-                {/* AI Avatar */}
                 {!isUser && (
                   <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 p-0.5 shadow-sm shrink-0 mt-1">
                     <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
@@ -310,7 +299,6 @@ const Chat = () => {
                   </div>
                 )}
 
-                {/* Message Bubble */}
                 <div
                   className={`relative max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 text-sm ${
                     isUser
@@ -359,7 +347,6 @@ const Chat = () => {
                   </div>
                 </div>
 
-                {/* User Avatar */}
                 {isUser && (
                   <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0 mt-1">
                     <User className="w-4 h-4" />
@@ -369,7 +356,6 @@ const Chat = () => {
             );
           })}
 
-          {/* Thinking loading bubble */}
           {loading && (
             <div className="flex gap-3 sm:gap-4 justify-start animate-fade-in">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 p-0.5 shrink-0 mt-1">
@@ -389,7 +375,6 @@ const Chat = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Suggested Quick Prompt Chips */}
         <div className="px-4 sm:px-6 py-2.5 bg-slate-950/50 border-t border-slate-800/60 overflow-x-auto">
           <div className="flex items-center gap-2 min-w-max">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1 mr-1">
@@ -414,7 +399,6 @@ const Chat = () => {
           </div>
         </div>
 
-        {/* Message Input Box */}
         <div className="p-4 sm:p-5 bg-slate-950/90 border-t border-slate-800/80">
           <form
             onSubmit={(e) => {

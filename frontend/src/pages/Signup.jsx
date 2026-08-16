@@ -28,7 +28,6 @@ const Signup = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  // Real-time validations
   const emailValidation = email ? validateEmail(email) : null;
   const passwordStrength = password ? checkPasswordStrength(password) : null;
   const passwordsMatch = confirmPassword ? password === confirmPassword : null;
@@ -70,7 +69,6 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-10 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background ambient orbs */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 left-10 w-72 h-72 bg-rose-600/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -98,7 +96,6 @@ const Signup = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Full Name */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                 Full Name
@@ -119,7 +116,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Email Address with Real-Time Verification */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
@@ -166,7 +162,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Password with Strength Meter */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                 Password
@@ -193,11 +188,9 @@ const Signup = () => {
                 </button>
               </div>
 
-              {/* Password Strength Categorization & Real-Time Checklist */}
               <PasswordStrengthMeter password={password} />
             </div>
 
-            {/* Confirm Password with Match Indicator */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
@@ -244,7 +237,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -264,7 +256,6 @@ const Signup = () => {
             </button>
           </form>
 
-          {/* Switch to Login */}
           <div className="mt-5 pt-4 border-t border-slate-800/80 text-center text-xs text-slate-400">
             Already have an account?{' '}
             <Link

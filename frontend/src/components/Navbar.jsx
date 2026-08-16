@@ -46,7 +46,6 @@ const Navbar = ({ onOpenAddModal }) => {
       <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            {/* Logo */}
             <div className="flex items-center gap-8">
               <NavLink to="/" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-600 to-red-500 p-0.5 shadow-glow-brand group-hover:scale-105 transition-transform duration-300">
@@ -64,7 +63,6 @@ const Navbar = ({ onOpenAddModal }) => {
                 </div>
               </NavLink>
 
-              {/* Desktop Navigation Links */}
               <nav className="hidden md:flex items-center gap-1">
                 {navLinks.map((item) => {
                   const Icon = item.icon;
@@ -93,7 +91,6 @@ const Navbar = ({ onOpenAddModal }) => {
               </nav>
             </div>
 
-            {/* Desktop Right Actions */}
             <div className="hidden md:flex items-center gap-3">
               {onOpenAddModal && (
                 <button
@@ -106,7 +103,6 @@ const Navbar = ({ onOpenAddModal }) => {
                 </button>
               )}
 
-              {/* Clickable User Profile Pill */}
               <button
                 type="button"
                 onClick={() => setIsProfileOpen(true)}
@@ -127,7 +123,6 @@ const Navbar = ({ onOpenAddModal }) => {
                 <ChevronDown className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-300 transition-colors" />
               </button>
 
-              {/* Logout Button */}
               <button
                 onClick={handleLogout}
                 title="Log out"
@@ -137,7 +132,6 @@ const Navbar = ({ onOpenAddModal }) => {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
               {onOpenAddModal && (
                 <button
@@ -165,7 +159,6 @@ const Navbar = ({ onOpenAddModal }) => {
           </div>
         </div>
 
-        {/* Mobile Drawer Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-slate-800/80 bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-5 space-y-2 animate-fade-in">
             {navLinks.map((item) => {
@@ -224,7 +217,6 @@ const Navbar = ({ onOpenAddModal }) => {
         )}
       </header>
 
-      {/* Interactive User Profile Modal */}
       <ProfileModal
         isOpen={isProfileOpen}
         onClose={() => setIsProfileOpen(false)}

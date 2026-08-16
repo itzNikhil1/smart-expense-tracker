@@ -9,7 +9,6 @@ const {
 } = require('../controllers/expenseController');
 const { protect } = require('../middleware/auth');
 
-// All expense routes require authentication
 router.use(protect);
 
 router.route('/')

@@ -17,7 +17,6 @@ const PasswordStrengthMeter = ({ password }) => {
 
   return (
     <div className="mt-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800/90 text-xs space-y-2 animate-fade-in">
-      {/* Header bar with strength score */}
       <div className="flex items-center justify-between">
         <span className="text-[11px] font-semibold text-slate-400 flex items-center gap-1.5">
           {strength.score >= 3 ? (
@@ -34,7 +33,6 @@ const PasswordStrengthMeter = ({ password }) => {
         </span>
       </div>
 
-      {/* 4-segment visual progress bar */}
       <div className="grid grid-cols-4 gap-1.5 h-1.5 w-full">
         {[1, 2, 3, 4].map((seg) => {
           const filled = strength.score >= seg;
@@ -49,7 +47,6 @@ const PasswordStrengthMeter = ({ password }) => {
         })}
       </div>
 
-      {/* Criteria Checklist Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-1.5 border-t border-slate-800/80 text-[11px]">
         {criteriaItems.map((item) => {
           const passed = strength.criteria[item.key];

@@ -41,7 +41,6 @@ const expenseSchema = new mongoose.Schema(
   }
 );
 
-// Compound index for querying user expenses sorted by date
 expenseSchema.index({ userId: 1, date: -1 });
 
 module.exports = mongoose.model('Expense', expenseSchema);

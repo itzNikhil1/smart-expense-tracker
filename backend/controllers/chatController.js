@@ -2,24 +2,20 @@ const mongoose = require('mongoose');
 const Expense = require('../models/Expense');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-/**
- * Fallback AI response generator when GEMINI_API_KEY is not configured
- * or when external AI API calls hit rate limits/network errors.
- */
 const generateLocalFallbackReply = (message, summaryData, currencySymbol = '$') => {
   const lowerMsg = message.toLowerCase();
   const { currentMonth, categoryBreakdown, recentTransactions, allTime } = summaryData;
 
   if (lowerMsg.includes('total') || lowerMsg.includes('spend') || lowerMsg.includes('month')) {
     const topCat = categoryBreakdown[0];
-    return `📊 **Monthly Spending Summary:**\n- **This Month's Total:** ${currencySymbol}${currentMonth.totalSpend.toFixed(2)} (${currentMonth.transactionCount} transactions)\n- **Average per transaction:** ${currencySymbol}${currentMonth.avgPerTransaction.toFixed(2)}\n${topCat ? `- **Top Category:** ${topCat.category} (${currencySymbol}${topCat.totalAmount.toFixed(2)})` : ''}\n\n*Tip: Powered by Gemini Flash financial intelligence.*`;
+    return `**Monthly Spending Summary:**\n- **This Month's Total:** ${currencySymbol}${currentMonth.totalSpend.toFixed(2)} (${currentMonth.transactionCount} transactions)\n- **Average per transaction:** ${currencySymbol}${currentMonth.avgPerTransaction.toFixed(2)}\n${topCat ? `- **Top Category:** ${topCat.category} (${currencySymbol}${topCat.totalAmount.toFixed(2)})` : ''}\n\n*Tip: Powered by Gemini Flash financial intelligence.*`;
   }
 
   if (lowerMsg.includes('food') || lowerMsg.includes('travel') || lowerMsg.includes('bills') || lowerMsg.includes('shopping') || lowerMsg.includes('health') || lowerMsg.includes('other')) {
     const matchedCategory = ['Food', 'Travel', 'Bills', 'Shopping', 'Health', 'Other'].find(c => lowerMsg.includes(c.toLowerCase()));
     const catData = categoryBreakdown.find(c => c.category.toLowerCase() === matchedCategory?.toLowerCase());
     if (catData) {
-      return `🏷️ **${catData.category} Expenses:**\n- **Total Spent:** ${currencySymbol}${catData.totalAmount.toFixed(2)}\n- **Transaction Count:** ${catData.count}\n- **Share of Spending:** ${allTime.totalSpend > 0 ? Math.round((catData.totalAmount / allTime.totalSpend) * 100) : 0}% of all-time tracked expenses.`;
+      return `**${catData.category} Expenses:**\n- **Total Spent:** ${currencySymbol}${catData.totalAmount.toFixed(2)}\n- **Transaction Count:** ${catData.count}\n- **Share of Spending:** ${allTime.totalSpend > 0 ? Math.round((catData.totalAmount / allTime.totalSpend) * 100) : 0}% of all-time tracked expenses.`;
     } else {
       return `You haven't logged any expenses under the **${matchedCategory}** category yet.`;
     }
@@ -30,42 +26,31 @@ const generateLocalFallbackReply = (message, summaryData, currencySymbol = '$') 
       return `You don't have any recent transactions logged yet. Add your first expense to get started!`;
     }
     const list = recentTransactions.slice(0, 5).map(t => `- **${t.amount}** on *${t.category}* (${t.description}) - ${t.date}`).join('\n');
-    return `📝 **Here are your most recent transactions:**\n${list}`;
+    return `**Here are your most recent transactions:**\n${list}`;
   }
 
   if (lowerMsg.includes('save') || lowerMsg.includes('tip') || lowerMsg.includes('budget') || lowerMsg.includes('advice') || lowerMsg.includes('insight') || lowerMsg.includes('pattern')) {
     const topCat = categoryBreakdown[0];
     if (topCat) {
-      return `💡 **Actionable Budget Insights:**\n- **Highest Expense Area:** Your top spending is **${topCat.category}** (${currencySymbol}${topCat.totalAmount.toFixed(2)}).\n- **Recommendation:** Consider setting a weekly budget cap for ${topCat.category}.\n- **Optimization:** Review your recurring subscriptions and large transactions to save 10-15% this month.`;
+      return `**Actionable Budget Insights:**\n- **Highest Expense Area:** Your top spending is **${topCat.category}** (${currencySymbol}${topCat.totalAmount.toFixed(2)}).\n- **Recommendation:** Consider setting a weekly budget cap for ${topCat.category}.\n- **Optimization:** Review your recurring subscriptions and large transactions to save 10-15% this month.`;
     }
-    return `💡 **Budget Tip:** Track every small expense consistently. Regular tracking helps identify unnecessary subscriptions and dining costs.`;
+    return `**Budget Tip:** Track every small expense consistently. Regular tracking helps identify unnecessary subscriptions and dining costs.`;
   }
 
   return `I have analyzed your expense history. You currently have **${allTime.transactionCount} total expenses** totaling **${currencySymbol}${allTime.totalSpend.toFixed(2)}**. This month you have spent **${currencySymbol}${currentMonth.totalSpend.toFixed(2)}**. How can I help you analyze your spending further?`;
 };
 
-/**
- * Clean any model thinking tags or internal rule leakage
- */
 const sanitizeAiReply = (text) => {
   if (!text) return '';
   let cleaned = text;
   
-  // Remove <thought>...</thought> blocks
   cleaned = cleaned.replace(/<thought>[\s\S]*?<\/thought>/gi, '');
-  
-  // Remove accidental drafting meta-lines like "*Rule 5...*" or "5. Drafting the response:"
   cleaned = cleaned.replace(/\*?Rule \d+[\s\S]*?\*?:/gi, '');
   cleaned = cleaned.replace(/Drafting the response:[\s\S]*?"/gi, '');
 
   return cleaned.trim();
 };
 
-/**
- * @desc    Ask questions about user expenses to the AI Chatbot
- * @route   POST /api/chat
- * @access  Private
- */
 const handleChat = async (req, res, next) => {
   try {
     const { message, currencySymbol = '$' } = req.body;
@@ -82,11 +67,7 @@ const handleChat = async (req, res, next) => {
     const startOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
     const endOfCurrentMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
-    // -------------------------------------------------------------
-    // Step 1: MongoDB Aggregation to build compact spending summary
-    // -------------------------------------------------------------
     const [monthSummaryRes, categorySummaryRes, allTimeRes, recentExpenses] = await Promise.all([
-      // 1. Current month totals
       Expense.aggregate([
         {
           $match: {
@@ -104,7 +85,6 @@ const handleChat = async (req, res, next) => {
         },
       ]),
 
-      // 2. Category totals (all-time)
       Expense.aggregate([
         {
           $match: {
@@ -129,7 +109,6 @@ const handleChat = async (req, res, next) => {
         },
       ]),
 
-      // 3. All-time summary
       Expense.aggregate([
         {
           $match: { userId: userObjectId },
@@ -143,7 +122,6 @@ const handleChat = async (req, res, next) => {
         },
       ]),
 
-      // 4. Last 20 transactions
       Expense.find({ userId: userObjectId })
         .sort({ date: -1 })
         .limit(20)
@@ -186,9 +164,6 @@ const handleChat = async (req, res, next) => {
       recentTransactions: formattedRecentExpenses,
     };
 
-    // -------------------------------------------------------------
-    // Step 2: System prompt construction (as official systemInstruction)
-    // -------------------------------------------------------------
     const systemPrompt = `You are SmartSpend AI, a friendly, professional, and highly insightful financial advisor for the Smart Expense Tracker application.
 You have direct, verified access to the user's personal financial database provided in JSON format below:
 
@@ -202,9 +177,6 @@ INSTRUCTIONS & RULES:
 5. Format your output with clean markdown (bullet points, bold headings, organized sections).
 6. Never output any internal reasoning, draft prefixes, or meta rules. Directly output your final, polished response.`;
 
-    // -------------------------------------------------------------
-    // Step 3: Call Google Gemini API with systemInstruction & robust fallback
-    // -------------------------------------------------------------
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey || apiKey === 'your_gemini_api_key_here' || apiKey.trim() === '') {
@@ -217,7 +189,6 @@ INSTRUCTIONS & RULES:
     }
 
     const genAI = new GoogleGenerativeAI(apiKey.trim());
-    // Prioritize high-availability flash models
     const candidateModels = [
       'gemini-3.5-flash',
       'gemini-3.7-flash',

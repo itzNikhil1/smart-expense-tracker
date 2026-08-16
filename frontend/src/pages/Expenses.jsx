@@ -39,7 +39,6 @@ const Expenses = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  // Filter States
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [startDate, setStartDate] = useState('');
@@ -47,13 +46,11 @@ const Expenses = () => {
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
 
-  // Modal States
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
   const [deletingExpense, setDeletingExpense] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
 
-  // Fetch Expenses with debounce / pagination
   const fetchExpenses = useCallback(
     async (page = 1) => {
       try {
@@ -92,7 +89,6 @@ const Expenses = () => {
     return () => clearTimeout(timer);
   }, [fetchExpenses]);
 
-  // Actions
   const handleAddExpense = async (data) => {
     const res = await api.post('/expenses', data);
     if (res.data.success) {
@@ -154,7 +150,6 @@ const Expenses = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-5 sm:space-y-6 animate-fade-in">
-      {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -184,10 +179,8 @@ const Expenses = () => {
         </div>
       </div>
 
-      {/* Filter & Search Bar */}
       <div className="glass-card p-4 sm:p-5 border-slate-800/80 space-y-3.5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3">
-          {/* Search input */}
           <div className="sm:col-span-2 lg:col-span-4 relative flex items-center">
             <span className="absolute left-3.5 flex items-center pointer-events-none text-slate-400 z-10">
               <Search className="w-4 h-4" />
@@ -201,7 +194,6 @@ const Expenses = () => {
             />
           </div>
 
-          {/* Category Dropdown */}
           <div className="sm:col-span-1 lg:col-span-3 relative flex items-center">
             <span className="absolute left-3.5 flex items-center pointer-events-none text-red-400 z-10">
               <Tag className="w-3.5 h-3.5" />
@@ -213,7 +205,7 @@ const Expenses = () => {
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat} value={cat} className="bg-slate-900 text-slate-100">
-                  {cat === 'All' ? '📁 All Categories' : `${cat}`}
+                  {cat === 'All' ? 'All Categories' : `${cat}`}
                 </option>
               ))}
             </select>
@@ -222,9 +214,7 @@ const Expenses = () => {
             </span>
           </div>
 
-          {/* Date Pickers Container */}
           <div className="sm:col-span-1 lg:col-span-4 grid grid-cols-2 gap-2">
-            {/* Start Date */}
             <div className="relative flex items-center bg-slate-950/60 border border-slate-800 rounded-xl px-2.5 py-1.5 focus-within:border-red-500">
               <div className="flex flex-col w-full">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
@@ -239,7 +229,6 @@ const Expenses = () => {
               </div>
             </div>
 
-            {/* End Date */}
             <div className="relative flex items-center bg-slate-950/60 border border-slate-800 rounded-xl px-2.5 py-1.5 focus-within:border-red-500">
               <div className="flex flex-col w-full">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
@@ -255,12 +244,11 @@ const Expenses = () => {
             </div>
           </div>
 
-          {/* Reset button */}
           <div className="sm:col-span-2 lg:col-span-1 flex items-center">
             <button
               onClick={resetFilters}
               title="Reset all filters"
-              className="w-full h-full min-h-[38px] flex items-center justify-center gap-1.5 p-2 rounded-xl text-xs text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800 border border-slate-700/60 transition-colors cursor-pointer"
+              className="w-full h-full min-h-[38px] flex items-center justify-center gap-1.5 p-2 rounded-xl text-xs text-slate-400 hover:text-white bg-slate-855 hover:bg-slate-800 border border-slate-700/60 transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="lg:hidden">Reset Filters</span>
@@ -268,7 +256,6 @@ const Expenses = () => {
           </div>
         </div>
 
-        {/* Category Pills & Quick Filter Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-800/60 text-xs">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             <span className="text-slate-500 font-medium shrink-0 mr-0.5">Quick:</span>
@@ -304,7 +291,6 @@ const Expenses = () => {
         </div>
       </div>
 
-      {/* Expenses Container */}
       <div className="glass-card border-slate-800/80 overflow-hidden shadow-xl">
         {loading ? (
           <div className="py-16 flex flex-col items-center justify-center">
@@ -331,7 +317,6 @@ const Expenses = () => {
           </div>
         ) : (
           <>
-            {/* 📱 Mobile Card View */}
             <div className="sm:hidden divide-y divide-slate-800/70">
               {expenses.map((exp) => (
                 <div key={exp._id} className="p-4 space-y-2 hover:bg-slate-850/40 transition-colors">
@@ -377,7 +362,6 @@ const Expenses = () => {
               ))}
             </div>
 
-            {/* 💻 Desktop Table View */}
             <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead>
@@ -469,7 +453,6 @@ const Expenses = () => {
           </>
         )}
 
-        {/* Pagination Footer */}
         {pagination.pages > 1 && (
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-t border-slate-800/80 bg-slate-950/40 text-xs text-slate-400">
             <div>
@@ -511,7 +494,6 @@ const Expenses = () => {
         )}
       </div>
 
-      {/* Add Expense Modal */}
       <ExpenseModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
@@ -519,7 +501,6 @@ const Expenses = () => {
         title="Add Expense"
       />
 
-      {/* Edit Expense Modal */}
       {editingExpense && (
         <ExpenseModal
           isOpen={!!editingExpense}
@@ -530,7 +511,6 @@ const Expenses = () => {
         />
       )}
 
-      {/* Delete Confirmation Modal */}
       {deletingExpense && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
           <div className="glass-modal max-w-md w-full p-6 space-y-4 animate-scale-up">

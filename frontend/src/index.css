@@ -12,7 +12,6 @@
     background-attachment: fixed;
   }
 
-  /* Date inputs dark mode visibility fix for mobile Chrome & iOS */
   input[type="date"] {
     color-scheme: dark;
   }
@@ -22,7 +21,6 @@
     cursor: pointer;
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -52,10 +50,10 @@
     padding-right: 1rem;
   }
   .glass-input-icon-left {
-    padding-left: 2.85rem !important; /* 46px ensures text and placeholder never overlap the icon */
+    padding-left: 2.85rem !important;
   }
   .glass-input-icon-right {
-    padding-right: 2.85rem !important; /* 46px ensures text never overlaps the right icon / eye button */
+    padding-right: 2.85rem !important;
   }
   .glass-modal {
     @apply bg-slate-900/95 backdrop-blur-2xl border border-slate-700/60 rounded-3xl shadow-2xl;

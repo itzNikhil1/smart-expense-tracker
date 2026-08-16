@@ -37,7 +37,7 @@ const Analytics = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [analyticsData, setAnalyticsData] = useState(null);
-  const [activeCategoryTab, setActiveCategoryTab] = useState('allTime'); // 'allTime' | 'currentMonth'
+  const [activeCategoryTab, setActiveCategoryTab] = useState('allTime');
 
   useEffect(() => {
     const fetchAnalytics = async () => {
@@ -103,7 +103,6 @@ const Analytics = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
-      {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -123,7 +122,6 @@ const Analytics = () => {
         </button>
       </div>
 
-      {/* High-Level Comparison KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div className="glass-card p-5 border-slate-800/80">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
@@ -187,9 +185,7 @@ const Analytics = () => {
         </div>
       </div>
 
-      {/* Visualizations Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Category Breakdown Chart */}
         <div className="glass-card p-6 border-slate-800/80 flex flex-col justify-between">
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -203,7 +199,6 @@ const Analytics = () => {
                 </p>
               </div>
 
-              {/* Toggle Switch */}
               <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs self-start">
                 <button
                   onClick={() => setActiveCategoryTab('allTime')}
@@ -289,7 +284,6 @@ const Analytics = () => {
           </div>
         </div>
 
-        {/* 6-Month Monthly Spending Trend Chart */}
         <div className="glass-card p-6 border-slate-800/80">
           <div className="mb-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
@@ -366,7 +360,6 @@ const Analytics = () => {
         </div>
       </div>
 
-      {/* Category Detailed Table Breakdown */}
       <div className="glass-card border-slate-800/80 overflow-hidden shadow-xl">
         <div className="p-6 border-b border-slate-800/80 flex items-center justify-between">
           <div>

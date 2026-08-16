@@ -4,21 +4,16 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 
-// Load environment variables
 dotenv.config();
 
-// Connect to Database
 connectDB();
 
 const app = express();
 
-// Middleware
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, Postman)
       if (!origin) return callback(null, true);
-      // Allow localhost, vercel.app domains, onrender.com, or any configured origin
       if (
         origin.includes('localhost') ||
         origin.includes('127.0.0.1') ||
@@ -28,7 +23,7 @@ app.use(
       ) {
         return callback(null, true);
       }
-      return callback(null, true); // Permissive for production web deployment
+      return callback(null, true);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -39,7 +34,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Request Logger (in dev)
 if (process.env.NODE_ENV !== 'production') {
   app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
@@ -47,7 +41,6 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Health Check
 app.get(['/health', '/api/health'], (req, res) => {
   res.status(200).json({
     status: 'ok',
@@ -56,7 +49,6 @@ app.get(['/health', '/api/health'], (req, res) => {
   });
 });
 
-// API Routes (mounted at both /api/* and /* for full compatibility)
 const authRoutes = require('./routes/auth');
 const expenseRoutes = require('./routes/expenses');
 const analyticsRoutes = require('./routes/analytics');
@@ -74,7 +66,6 @@ app.use('/analytics', analyticsRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/chat', chatRoutes);
 
-// 404 handler for undefined API routes
 app.use('/api/*', (req, res) => {
   res.status(404).json({
     success: false,
@@ -82,19 +73,17 @@ app.use('/api/*', (req, res) => {
   });
 });
 
-// Global Error Handler Middleware
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 
 const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Smart Expense Tracker Server running on port ${PORT}`);
-  console.log(`📡 API Endpoints available at http://localhost:${PORT}/api`);
+  console.log(`Smart Expense Tracker Server running on port ${PORT}`);
+  console.log(`API Endpoints available at http://localhost:${PORT}/api`);
 });
 
-// Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
-  console.error(`❌ Unhandled Error: ${err.message}`);
+  console.error(`Unhandled Error: ${err.message}`);
 });
 
 module.exports = app;

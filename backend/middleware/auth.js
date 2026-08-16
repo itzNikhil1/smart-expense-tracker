@@ -1,9 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-/**
- * Protect routes: verifies the JWT token from the Authorization header
- * and attaches user object { id } to req.user.
- */
 const protect = async (req, res, next) => {
   let token;
 
@@ -15,7 +11,6 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_for_dev_only');
 
-      // Attach user id and token payload to request object
       req.user = { id: decoded.id };
       return next();
     } catch (error) {

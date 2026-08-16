@@ -109,7 +109,6 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
-      {/* Header Banner */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-card p-6 sm:p-8 border-slate-800/80 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -126,7 +125,7 @@ const Dashboard = () => {
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Welcome back, {user?.name?.split(' ')[0] || 'User'} 👋
+            Welcome back, {user?.name?.split(' ')[0] || 'User'}
           </h1>
           <p className="text-sm text-slate-400 max-w-xl">
             Here is your financial breakdown and AI analysis formatted in{' '}
@@ -152,7 +151,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard
           title="Spent This Month"
@@ -190,7 +188,6 @@ const Dashboard = () => {
         />
       </div>
 
-      {/* Quick AI Question Banner */}
       <div className="glass-card p-5 border-red-500/20 bg-gradient-to-r from-red-950/30 via-slate-900/60 to-slate-900/90 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -223,9 +220,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Monthly Spending Trend Bar Chart (2 cols) */}
         <div className="lg:col-span-2 glass-card p-6 border-slate-800/80">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -303,7 +298,6 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* Category Breakdown Donut Chart (1 col) */}
         <div className="glass-card p-6 border-slate-800/80 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -366,7 +360,6 @@ const Dashboard = () => {
             )}
           </div>
 
-          {/* Mini Legend with Click-to-Ask AI */}
           <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-800/80">
             {categoryBreakdown.slice(0, 4).map((cat) => (
               <button
@@ -394,7 +387,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Recent Transactions List */}
       <div className="glass-card border-slate-800/80 overflow-hidden shadow-xl">
         <div className="p-6 border-b border-slate-800/80 flex items-center justify-between">
           <div>
@@ -454,7 +446,6 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* Add Expense Modal */}
       <ExpenseModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

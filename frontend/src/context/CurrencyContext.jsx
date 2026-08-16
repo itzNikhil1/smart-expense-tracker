@@ -20,7 +20,7 @@ export const CurrencyProvider = ({ children }) => {
       const found = CURRENCIES.find((c) => c.code === saved);
       if (found) return found;
     }
-    return CURRENCIES[0]; // Default USD
+    return CURRENCIES[0];
   });
 
   const changeCurrency = (code) => {

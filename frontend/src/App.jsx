@@ -22,20 +22,17 @@ const AppContent = () => {
 
   const handleGlobalAddExpense = async (data) => {
     await api.post('/expenses', data);
-    // Reload or notify if needed; pages will auto update on navigation or focus
     window.location.reload();
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0b0f19] text-slate-100 selection:bg-brand-500 selection:text-white">
-      {/* Show Navbar on protected screens */}
       {isAuthenticated && !isAuthPage && (
         <Navbar onOpenAddModal={() => setGlobalAddModalOpen(true)} />
       )}
 
       <main className="flex-1">
         <Routes>
-          {/* Public Routes */}
           <Route
             path="/login"
             element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
@@ -45,7 +42,6 @@ const AppContent = () => {
             element={isAuthenticated ? <Navigate to="/" replace /> : <Signup />}
           />
 
-          {/* Protected Routes */}
           <Route
             path="/"
             element={
@@ -79,12 +75,10 @@ const AppContent = () => {
             }
           />
 
-          {/* Catch-all fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
 
-      {/* Global Quick Add Expense Modal */}
       {isAuthenticated && (
         <ExpenseModal
           isOpen={globalAddModalOpen}

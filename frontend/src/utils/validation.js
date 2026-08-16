@@ -1,7 +1,3 @@
-/**
- * Real-time validation utilities for Email and Password strength
- */
-
 export const validateEmail = (email) => {
   if (!email || !email.trim()) {
     return { isValid: false, message: 'Email address is required' };

@@ -110,7 +110,6 @@ const ExpenseModal = ({
         className="glass-modal w-full max-w-lg p-6 sm:p-8 relative border border-slate-700/60 shadow-2xl animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition-colors"
@@ -133,7 +132,6 @@ const ExpenseModal = ({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Amount input */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
@@ -167,7 +165,6 @@ const ExpenseModal = ({
             )}
           </div>
 
-          {/* Category Picker */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
               Category
@@ -200,7 +197,6 @@ const ExpenseModal = ({
             )}
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
               Description / Merchant
@@ -225,7 +221,6 @@ const ExpenseModal = ({
             )}
           </div>
 
-          {/* Date Picker */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
               Date
@@ -248,7 +243,6 @@ const ExpenseModal = ({
             )}
           </div>
 
-          {/* Action buttons */}
           <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
             <button
               type="button"

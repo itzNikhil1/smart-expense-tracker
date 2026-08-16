@@ -14,7 +14,6 @@ const getBaseURL = () => {
     }
   }
 
-  // Ensure url always has the /api suffix
   url = url.trim().replace(/\/+$/, '');
   if (!url.endsWith('/api')) {
     url += '/api';
@@ -29,7 +28,6 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to attach JWT token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -43,12 +41,10 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle token expiration
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // If 401 unauthorized, clear stored token if not already on auth page
       if (
         !window.location.pathname.includes('/login') &&
         !window.location.pathname.includes('/signup')

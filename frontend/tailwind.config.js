@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -8,7 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Bold Crimson & Ruby Red Theme
         brand: {
           50: '#fef2f2',
           100: '#fee2e2',

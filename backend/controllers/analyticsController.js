@@ -1,33 +1,19 @@
 const mongoose = require('mongoose');
 const Expense = require('../models/Expense');
 
-/**
- * @desc    Get aggregated analytics summary (current month total, category breakdown, 6-month trend)
- * @route   GET /api/analytics/summary
- * @access  Private
- * 
- * NOTE: All financial metrics are computed strictly using MongoDB Aggregation Pipelines
- * ($match, $group, $sort, $project) on the database level rather than fetching all records.
- */
 const getAnalyticsSummary = async (req, res, next) => {
   try {
     const userObjectId = new mongoose.Types.ObjectId(req.user.id);
     const now = new Date();
 
-    // Calculate boundary dates
     const startOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
     const endOfCurrentMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
-    // Calculate previous month boundaries for comparison
     const startOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1, 0, 0, 0, 0);
     const endOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
 
-    // 6 months ago boundary
     const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1, 0, 0, 0, 0);
 
-    // -------------------------------------------------------------
-    // Pipeline 1: Current Month Spend & Stats ($match -> $group)
-    // -------------------------------------------------------------
     const currentMonthPipeline = [
       {
         $match: {
@@ -46,9 +32,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       },
     ];
 
-    // -------------------------------------------------------------
-    // Pipeline 2: Previous Month Spend (for MoM comparison)
-    // -------------------------------------------------------------
     const prevMonthPipeline = [
       {
         $match: {
@@ -65,9 +48,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       },
     ];
 
-    // -------------------------------------------------------------
-    // Pipeline 3: Category-Wise Breakdown ($match -> $group -> $sort)
-    // -------------------------------------------------------------
     const categoryBreakdownPipeline = [
       {
         $match: {
@@ -94,7 +74,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       },
     ];
 
-    // Category breakdown for Current Month specifically
     const currentMonthCategoryPipeline = [
       {
         $match: {
@@ -122,9 +101,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       },
     ];
 
-    // -------------------------------------------------------------
-    // Pipeline 4: Monthly Trend for Last 6 Months ($match -> $group -> $sort)
-    // -------------------------------------------------------------
     const monthlyTrendPipeline = [
       {
         $match: {
@@ -150,9 +126,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       },
     ];
 
-    // -------------------------------------------------------------
-    // Pipeline 5: All-time overview totals
-    // -------------------------------------------------------------
     const allTimePipeline = [
       {
         $match: {
@@ -169,7 +142,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       },
     ];
 
-    // Execute aggregation pipelines concurrently
     const [
       currentMonthRes,
       prevMonthRes,
@@ -186,13 +158,11 @@ const getAnalyticsSummary = async (req, res, next) => {
       Expense.aggregate(allTimePipeline),
     ]);
 
-    // Format Current & Prev Month stats
     const currentMonthSpend = currentMonthRes[0]?.totalAmount || 0;
     const currentMonthCount = currentMonthRes[0]?.count || 0;
     const currentMonthAvg = currentMonthRes[0]?.avgAmount || 0;
     const prevMonthSpend = prevMonthRes[0]?.totalAmount || 0;
 
-    // Month-over-Month percentage change
     let momPercentage = 0;
     if (prevMonthSpend > 0) {
       momPercentage = Math.round(((currentMonthSpend - prevMonthSpend) / prevMonthSpend) * 100);
@@ -200,7 +170,6 @@ const getAnalyticsSummary = async (req, res, next) => {
       momPercentage = 100;
     }
 
-    // Format 6-Month Continuous Timeline
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const monthlyTrends = [];
 

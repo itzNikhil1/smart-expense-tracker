@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
 
-  // Check auth state on load
   useEffect(() => {
     const verifyUser = async () => {
       const storedToken = localStorage.getItem('token');

@@ -37,7 +37,6 @@ const StatCard = ({
 
   return (
     <div className={`glass-card p-5 relative overflow-hidden group ${scheme.border}`}>
-      {/* Background ambient glow on hover */}
       <div className={`absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none ${scheme.glow}`} />
 
       <div className="flex items-center justify-between mb-3 relative z-10">

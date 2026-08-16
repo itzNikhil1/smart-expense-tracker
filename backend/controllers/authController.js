@@ -1,25 +1,16 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-/**
- * Generate signed JWT token
- */
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'fallback_secret_for_dev_only', {
     expiresIn: '30d',
   });
 };
 
-/**
- * @desc    Register a new user
- * @route   POST /api/auth/register
- * @access  Public
- */
 const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
-    // Validate email format
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email.trim())) {
       return res.status(400).json({
@@ -35,7 +26,6 @@ const register = async (req, res, next) => {
       });
     }
 
-    // Check if user already exists
     const userExists = await User.findOne({ email: email.toLowerCase().trim() });
     if (userExists) {
       return res.status(400).json({
@@ -44,7 +34,6 @@ const register = async (req, res, next) => {
       });
     }
 
-    // Create user
     const user = await User.create({
       name: name.trim(),
       email: email.toLowerCase().trim(),
@@ -68,16 +57,10 @@ const register = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Authenticate user & get token
- * @route   POST /api/auth/login
- * @access  Public
- */
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Validate inputs
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -93,7 +76,6 @@ const login = async (req, res, next) => {
       });
     }
 
-    // Find user
     const user = await User.findOne({ email: email.toLowerCase().trim() });
     if (!user) {
       return res.status(401).json({
@@ -102,7 +84,6 @@ const login = async (req, res, next) => {
       });
     }
 
-    // Check password match
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
       return res.status(401).json({
@@ -128,11 +109,6 @@ const login = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Get current logged in user details
- * @route   GET /api/auth/me
- * @access  Private
- */
 const getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select('-password');

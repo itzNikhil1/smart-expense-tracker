@@ -1,10 +1,10 @@
-# 💰 Smart Expense Tracker (MERN + AI Chatbot)
+# Smart Expense Tracker (MERN + AI Chatbot)
 
 An intelligent, full-stack personal finance application built with the **MERN** stack (MongoDB, Express, React, Node.js), featuring JWT authentication, comprehensive expense management, database-level analytics aggregations, and an **AI Chatbot powered by Google Gemini API (Flash model)** that answers natural-language questions about your spending.
 
 ---
 
-## 🚀 Live Tech Stack
+## Live Tech Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -21,7 +21,7 @@ An intelligent, full-stack personal finance application built with the **MERN** 
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 expence tracker/
@@ -83,7 +83,7 @@ expence tracker/
 
 ---
 
-## ⚡ Prerequisites
+## Prerequisites
 
 Ensure you have the following installed on your machine:
 - **Node.js**: v18.0.0 or later (`node -v`)
@@ -92,18 +92,13 @@ Ensure you have the following installed on your machine:
 
 ---
 
-## 🛠️ Step-by-Step Installation & Setup
+## Step-by-Step Installation & Setup
 
 ### 1. Configure the Backend
 
 ```bash
-# Navigate to the backend folder
 cd backend
-
-# Install dependencies
 npm install
-
-# Copy environment template
 cp .env.example .env
 ```
 
@@ -138,20 +133,15 @@ Backend will start on `http://localhost:5000` with status messages.
 
 In a new terminal window:
 ```bash
-# Navigate to frontend folder
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start Vite development server
 npm run dev
 ```
 Frontend will be running on `http://localhost:5173`.
 
 ---
 
-## 🧪 Running Automated Verification Tests
+## Running Automated Verification Tests
 
 The backend includes a comprehensive automated test script that exercises all 10 API endpoints:
 ```bash
@@ -172,13 +162,12 @@ node scripts/testEndpoints.js
 
 ---
 
-## 🧠 Technical Highlights for Interview
+## Technical Highlights for Interview
 
 ### 1. MongoDB Aggregation Pipeline Architecture
 Rather than retrieving raw documents and performing calculations in JavaScript (which leads to severe memory and performance bottlenecks on large datasets), the application leverages native multi-stage MongoDB aggregations:
 
 ```javascript
-// Category-wise Breakdown Pipeline
 [
   { $match: { userId: userObjectId } },
   { $group: {
@@ -199,7 +188,6 @@ Rather than retrieving raw documents and performing calculations in JavaScript (
 ```
 
 ```javascript
-// 6-Month Monthly Trend Pipeline
 [
   { $match: { userId: userObjectId, date: { $gte: sixMonthsAgo } } },
   { $group: {
@@ -224,7 +212,7 @@ When a user asks `"How much did I spend on Food this month?"` or `"What are my h
 
 ---
 
-## 📡 REST API Reference
+## REST API Reference
 
 ### Authentication
 - `POST /api/auth/register` — Register a new account (`name`, `email`, `password`)
@@ -243,6 +231,3 @@ When a user asks `"How much did I spend on Food this month?"` or `"What are my h
 
 ### AI Chatbot
 - `POST /api/chat` — Body: `{ "message": "What is my biggest expense category?" }` *(Protected)*
-
----
-

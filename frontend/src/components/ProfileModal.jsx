@@ -64,7 +64,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
         className="glass-modal w-full max-w-md p-6 sm:p-7 relative border border-slate-700/60 shadow-2xl animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition-colors"
@@ -72,7 +71,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Profile Header */}
         <div className="flex items-center gap-4 mb-6">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-600 to-red-500 p-0.5 shadow-glow-brand shrink-0">
             <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-xl font-bold text-white tracking-wider">
@@ -94,7 +92,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Financial Highlights */}
         <div className="grid grid-cols-2 gap-3 mb-6">
           <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
@@ -114,7 +111,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Currency Preference Selector */}
         <div className="mb-6">
           <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
@@ -147,7 +143,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Account Meta & Actions */}
         <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3 text-slate-500" />
