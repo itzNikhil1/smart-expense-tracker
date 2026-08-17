@@ -10,7 +10,7 @@ An intelligent, full-stack personal finance application built with the **MERN** 
 |---|---|---|
 | **Frontend** | React 18, Vite | High-performance SPA with client-side routing |
 | **Routing** | React Router v6 | Declarative routing with protected session guards |
-| **Styling** | Tailwind CSS | Curated dark mode, glassmorphism, glowing accents |
+| **Styling** |  CSS | Curated dark mode, glassmorphism, glowing accents |
 | **Visualizations** | Recharts | Interactive Donut/Pie charts & 6-month Area/Bar trends |
 | **Icons** | Lucide React | Modern, crisp financial & UI iconography |
 | **HTTP Client** | Axios | Configured with automatic JWT auth & 401 interceptors |
