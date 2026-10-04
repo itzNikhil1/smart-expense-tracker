@@ -107,7 +107,7 @@ const Signup = () => {
                 <input
                   type="text"
                   required
-                  placeholder="Nikhil Prasad"
+                  placeholder="Enter your Name "
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="glass-input glass-input-icon-left w-full text-sm"
@@ -142,7 +142,7 @@ const Signup = () => {
                 <input
                   type="email"
                   required
-                  placeholder="nikhil@example.com"
+                  placeholder="something@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`glass-input glass-input-icon-left ${email ? 'glass-input-icon-right' : ''} w-full text-sm ${
